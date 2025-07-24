@@ -1,0 +1,20 @@
+# train_model.py (run this once)
+import pickle
+from sklearn.feature_extraction.text import TfidfVectorizer
+from sklearn.linear_model import LogisticRegression
+
+# Sample data (URLs and labels)
+X = ["paypal-login.com", "google.com", "secure-banking.net", "youtube.com"]
+y = [1, 0, 1, 0]  # 1 = phishing, 0 = safe
+
+# Vectorize
+vectorizer = TfidfVectorizer()
+X_vect = vectorizer.fit_transform(X)
+
+# Train model
+model = LogisticRegression()
+model.fit(X_vect, y)
+
+# Save model and vectorizer
+pickle.dump(model, open("model.pkl", "wb"))
+pickle.dump(vectorizer, open("vectorizer.pkl", "wb"))
